@@ -1,60 +1,21 @@
 {
-    "taskDefinitionArn": "arn:aws:ecs:ap-northeast-2:401575532556:task-definition/FastTask:2",
+    "taskDefinitionArn": "arn:aws:ecs:ap-northeast-2:401575532556:task-definition/FastTask:13",
     "containerDefinitions": [
         {
-            "name": "postgre",
-            "image": "postgres:12.1-alpine",
-            "cpu": 0,
-            "portMappings": [],
-            "essential": true,
-            "environment": [
-                {
-                    "name": "POSTGRES_USER",
-                    "value": "fastapi"
-                },
-                {
-                    "name": "POSTGRES_PASSWORD",
-                    "value": "fastapi"
-                },
-                {
-                    "name": "POSTGRES_DB",
-                    "value": "fastapi"
-                }
-            ],
-            "environmentFiles": [],
-            "mountPoints": [],
-            "volumesFrom": [],
-            "logConfiguration": {
-                "logDriver": "awslogs",
-                "options": {
-                    "awslogs-create-group": "true",
-                    "awslogs-group": "/ecs/FastTask",
-                    "awslogs-region": "ap-northeast-2",
-                    "awslogs-stream-prefix": "ecs"
-                }
-            }
-        },
-        {
-            "name": "fast-ctn",
-            "image": "401575532556.dkr.ecr.ap-northeast-2.amazonaws.com/fast-r",
+            "name": "fast_ctn",
+            "image": "401575532556.dkr.ecr.ap-northeast-2.amazonaws.com/fast-r:f46e15cf131fca51dbdb34257d8e9e1541a3ebca",
             "cpu": 0,
             "portMappings": [
                 {
-                    "name": "fast-ctn-8002-tcp",
-                    "containerPort": 8002,
-                    "hostPort": 8002,
+                    "name": "fast_ctn-80-tcp",
+                    "containerPort": 80,
+                    "hostPort": 80,
                     "protocol": "tcp",
                     "appProtocol": "http"
                 }
             ],
-            "essential": false,
-            "environment": [
-                {
-                    "name": "DATABASE_URL",
-                    "value": "postgresql://fastapi:fastapi@db/fastapi"
-                }
-            ],
-            "environmentFiles": [],
+            "essential": true,
+            "environment": [],
             "mountPoints": [],
             "volumesFrom": [],
             "logConfiguration": {
@@ -69,9 +30,10 @@
         }
     ],
     "family": "FastTask",
+    "taskRoleArn": "arn:aws:iam::401575532556:role/ecsTaskExecutionRole",
     "executionRoleArn": "arn:aws:iam::401575532556:role/ecsTaskExecutionRole",
     "networkMode": "awsvpc",
-    "revision": 2,
+    "revision": 13,
     "volumes": [],
     "status": "ACTIVE",
     "requiresAttributes": [
@@ -82,10 +44,13 @@
             "name": "ecs.capability.execution-role-awslogs"
         },
         {
+            "name": "com.amazonaws.ecs.capability.ecr-auth"
+        },
+        {
             "name": "com.amazonaws.ecs.capability.docker-remote-api.1.19"
         },
         {
-            "name": "com.amazonaws.ecs.capability.ecr-auth"
+            "name": "com.amazonaws.ecs.capability.task-iam-role"
         },
         {
             "name": "ecs.capability.execution-role-ecr-pull"
@@ -106,15 +71,16 @@
         "FARGATE"
     ],
     "requiresCompatibilities": [
+        "EC2",
         "FARGATE"
     ],
-    "cpu": "1024",
-    "memory": "3072",
+    "cpu": "512",
+    "memory": "1024",
     "runtimePlatform": {
         "cpuArchitecture": "X86_64",
         "operatingSystemFamily": "LINUX"
     },
-    "registeredAt": "2023-02-06T03:00:06.765Z",
+    "registeredAt": "2023-02-10T05:06:21.843Z",
     "registeredBy": "arn:aws:iam::401575532556:root",
     "tags": [
         {
